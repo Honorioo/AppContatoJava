@@ -19,6 +19,10 @@ public class ContatoService {
 		return contatoRepository.save(contato);
 	}
 	
+	public Optional<Contato> savePutCtt(Long id, Contato contato) {
+	    return Optional.ofNullable(contatoRepository.save(contato));
+	}
+	
 	public List<Contato> listCtt(){
 		return contatoRepository.findAll();
 	}
