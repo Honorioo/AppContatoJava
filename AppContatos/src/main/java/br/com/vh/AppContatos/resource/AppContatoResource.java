@@ -34,14 +34,14 @@ public class AppContatoResource {
 
 	
 	@GetMapping//http://localhost:8080/api
-	public String getApi() {
+	public String apiTest() {
 		return "Api funcionando";
 	}
 		
 
 	@GetMapping("listar")
 	@ResponseStatus(HttpStatus.OK)
-	public List<Contato> listar(){
+	public List<Contato> list(){
 		//List<Contato> listProdutos = contatoRepository.findAll();		
 		return contatoService.listCtt();
 	}	
@@ -55,27 +55,27 @@ public class AppContatoResource {
 
 	@PostMapping("cadastrar")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Contato salvarContato(@RequestBody Contato contato) {
+	public Contato saveContact(@RequestBody Contato contato) {
 	    return contatoService.saveCtt(contato);
 
 	}
 	
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void removerCliente(@PathVariable("id") Long id) {
+	public void removeContact(@PathVariable("id") Long id) {
 		contatoService.searchById(id).map(contato -> {
 			contatoService.removeId(contato.getId());
 			return Void.TYPE;
-		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Contato não encontrado"));
+		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Contact not found"));
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<?> atualizarContato(@PathVariable("id") Long id, @RequestBody Contato contato) {
+	public ResponseEntity<?> updateContact(@PathVariable("id") Long id, @RequestBody Contato contato) {
 	    Optional<Contato> updatedContato = contatoService.savePutCtt(id, contato);
 
 	    return updatedContato
 	            .map(value -> ResponseEntity.ok().body(value)) 
-	            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Contato não encontrado"));
+	            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Contact not found"));
 	}
 
 	
