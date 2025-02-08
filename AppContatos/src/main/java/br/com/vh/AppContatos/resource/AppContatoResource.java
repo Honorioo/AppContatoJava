@@ -3,6 +3,7 @@ package br.com.vh.AppContatos.resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,54 +29,63 @@ public class AppContatoResource {
 	
 	@Autowired
 	private ContatoService contatoService;
-	
-	/*@Autowired
-	private ContatosRepository contatoRepository;*/
 
-	
-	@GetMapping//http://localhost:8080/api
-	public String apiTest() {
-		return "Api funcionando";
-	}
-		
-
-	@GetMapping("listar")
-	@ResponseStatus(HttpStatus.OK)
-	public List<Contato> list(){
-		//List<Contato> listProdutos = contatoRepository.findAll();		
-		return contatoService.listCtt();
+	@GetMapping
+	public ResponseEntity<List<Contato>> list(){
+		List<Contato> listContato = contatoService.listCtt();		
+		if(listContato == null) {
+			return ResponseEntity.badRequest().build();
+		}
+		if(listContato.size() == 0) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok(listContato);
 	}	
 	
-	/*@PostMapping("cadastrar")
-	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Contato> salvarContato(@RequestBody Contato contato) {
-	    Contato novoContato = contatoService.saveCtt(contato);
-	    return ResponseEntity.status(HttpStatus.CREATED).body(novoContato);
-	}*/
-
-	@PostMapping("cadastrar")
-	@ResponseStatus(HttpStatus.CREATED)
-	public Contato saveContact(@RequestBody Contato contato) {
-	    return contatoService.saveCtt(contato);
-
+	@GetMapping("/{id}")
+	public ResponseEntity<Optional<Contato>> findById(@PathVariable Long id){
+		Optional<Contato> idContato = contatoService.searchById(id);
+		if(idContato == null) {
+			return ResponseEntity.notFound().build();
+		}else {
+			return ResponseEntity.ok(idContato);
+		}
 	}
 	
-	@DeleteMapping("/{id}")
+	@PostMapping("cadastrar")
+	@ResponseStatus(HttpStatus.CREATED)
+	public ResponseEntity<Contato> saveContact(@RequestBody Contato contato) {
+		Contato newCtt = contatoService.saveCtt(contato);
+		if(newCtt == null) {
+			return ResponseEntity.notFound().build();
+		}
+		else {
+			return ResponseEntity.ok(newCtt);
+		}
+	}
+	
+	/*@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void removeContact(@PathVariable("id") Long id) {
 		contatoService.searchById(id).map(contato -> {
 			contatoService.removeId(contato.getId());
 			return Void.TYPE;
 		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Contact not found"));
+	}*/
+	
+	public ResponseEntity<?> delete(@PathVariable Long id){
+		contatoService.removeId(id);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT); //204
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<?> updateContact(@PathVariable("id") Long id, @RequestBody Contato contato) {
-	    Optional<Contato> updatedContato = contatoService.savePutCtt(id, contato);
-
-	    return updatedContato
-	            .map(value -> ResponseEntity.ok().body(value)) 
-	            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Contact not found"));
+	public ResponseEntity<Contato> updateContact(@RequestBody Contato contato) {
+	    Contato updatedContato = contatoService.savePutCtt(contato);
+	    if(updatedContato == null) {
+	    	return ResponseEntity.badRequest().build();
+	    }else {
+	    	return ResponseEntity.ok(updatedContato);
+	    }
 	}
 
 	
