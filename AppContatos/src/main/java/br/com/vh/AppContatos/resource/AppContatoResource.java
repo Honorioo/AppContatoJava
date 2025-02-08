@@ -52,7 +52,7 @@ public class AppContatoResource {
 		}
 	}
 	
-	@PostMapping("cadastrar")
+	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Contato> saveContact(@RequestBody Contato contato) {
 		Contato newCtt = contatoService.saveCtt(contato);
@@ -72,15 +72,15 @@ public class AppContatoResource {
 			return Void.TYPE;
 		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Contact not found"));
 	}*/
-	
+	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable Long id){
 		contatoService.removeId(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT); //204
 	}
 	
-	@PutMapping("/{id}")
+	@PutMapping
 	public ResponseEntity<Contato> updateContact(@RequestBody Contato contato) {
-	    Contato updatedContato = contatoService.savePutCtt(contato);
+	    Contato updatedContato = contatoService.uptade(contato);
 	    if(updatedContato == null) {
 	    	return ResponseEntity.badRequest().build();
 	    }else {
@@ -88,6 +88,7 @@ public class AppContatoResource {
 	    }
 	}
 
+	
 	
 	
 }

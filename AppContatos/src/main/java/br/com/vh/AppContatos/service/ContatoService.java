@@ -33,18 +33,19 @@ public class ContatoService {
 
 	}
 	
-	public Contato savePutCtt(Contato contato) {
+	
+	public Contato uptade(Contato contato) {
+		Optional<Contato> findContato = contatoRepository.findById(contato.getId());
 		
-		Optional<Contato> findCtt =  contatoRepository.findById(contato.getId());
-		
-		if(findCtt.isPresent()) {
-			Contato updCtt = findCtt.get(); //setId
-			updCtt.setName(contato.getName()); //veio por parametro
-			updCtt.setNumberTel(contato.getNumberTel());
-			return contatoRepository.save(updCtt); //UPDATE
+		if(findContato.isPresent()) {
+			Contato updProduto = findContato.get(); //setId
+			updProduto.setName(contato.getName()); //veio por parametro
+			updProduto.setNumberTel(contato.getNumberTel());
+			return contatoRepository.save(updProduto); //UPDATE
 		}
-		return contatoRepository.save(contato); //INSERT	
+		return contatoRepository.save(contato); //INSERT		
 	}
+	
 	
 	public List<Contato> listCtt(){
 		return contatoRepository.findAll();
