@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -17,14 +19,23 @@ public class Contato {
 	
 	@Column(nullable = false)
 	private String name;
+		
+	@Column(nullable = false)
+	private Integer typeCtt;
 	
 	@Column(nullable = false)
-	private String numberTel;
+	private String contact;
 	
-	public Contato(Long id, String name, String numberTel) {
+	@OneToMany
+	@JoinColumn(name = "usuario_id", referencedColumnName = "id")
+	private Usuario usuario;
+	
+	public Contato(Long id, String name, Integer typeCtt, String contact, Usuario usuario) {
 		this.id = id;
 		this.name = name;
-		this.numberTel = numberTel;
+		this.typeCtt = typeCtt;
+		this.contact = contact;
+		this.usuario = usuario;
 	}
 
 	public Contato() {
@@ -48,12 +59,30 @@ public class Contato {
 	}
 
 	public String getNumberTel() {
-		return numberTel;
+		return contact;
 	}
 
-	public void setNumberTel(String numberTel) {
-		this.numberTel = numberTel;
+	public void setNumberTel(String contact) {
+		this.contact = contact;
 	}
-		
+
+	public Integer getTypeCtt() {
+		return typeCtt;
+	}
+
+	public void setTypeCtt(Integer typeCtt) {
+		this.typeCtt = typeCtt;
+	}
+
+	@Override
+	public String toString() {
+		return "Contato [id=" + id + 
+			   ", name="      + name + 
+			   ", typeCtt="   + typeCtt + 
+			   ", contact="   + contact + 
+			   ", usuario="   + usuario + "]";
+	}
+	
+	
 	
 }

@@ -72,6 +72,7 @@ public class AppContatoResource {
 			return Void.TYPE;
 		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Contact not found"));
 	}*/
+	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable Long id){
 		contatoService.removeId(id);
