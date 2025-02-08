@@ -17,11 +17,13 @@ public class ContatoService {
 	
 	public Contato saveCtt(Contato contato) {
 		if(contato.getName() == null) {
-			
+			System.out.println("O nome esta vazio.");
+			return null;
 		}
 		
 		if(contato.getNumberTel() == null) {
-			
+			System.out.println("Numero de telefone vazio.");
+			return null;
 		}try {
 			return contatoRepository.save(contato);
 		}catch (Exception e) {
@@ -33,15 +35,15 @@ public class ContatoService {
 
 	}
 	
-	
 	public Contato uptade(Contato contato) {
 		Optional<Contato> findContato = contatoRepository.findById(contato.getId());
 		
 		if(findContato.isPresent()) {
-			Contato updProduto = findContato.get(); //setId
-			updProduto.setName(contato.getName()); //veio por parametro
-			updProduto.setNumberTel(contato.getNumberTel());
-			return contatoRepository.save(updProduto); //UPDATE
+			Contato uptdContato = findContato.get(); //setId
+			uptdContato.setName(contato.getName()); //veio por parametro
+			uptdContato.setNumberTel(contato.getNumberTel());
+			uptdContato.setTypeCtt(contato.getTypeCtt());
+			return contatoRepository.save(uptdContato); //UPDATE
 		}
 		return contatoRepository.save(contato); //INSERT		
 	}
