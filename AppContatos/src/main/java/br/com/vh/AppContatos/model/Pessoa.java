@@ -1,15 +1,18 @@
 package br.com.vh.AppContatos.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_usuario")
-public class Usuario {
+@Table(name = "tb_pessoa")
+public class Pessoa {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,14 +32,21 @@ public class Usuario {
 
 	@Column(nullable = false)
 	private String uf;
-
-	public Usuario(Long id, String name, String email, String cep, String cidade, String uf) {
+	
+	@OneToMany(mappedBy = "pessoa")
+	private List<Contato> contatos;
+ 
+	public Pessoa(Long id, String name, String email, String cep, String cidade, String uf) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.cep = cep;
 		this.cidade = cidade;
 		this.uf = uf;
+	}
+	
+	public Pessoa() {
+		
 	}
 
 	public Long getId() {

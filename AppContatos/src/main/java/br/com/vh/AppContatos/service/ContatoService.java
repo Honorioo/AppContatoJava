@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.vh.AppContatos.model.Contato;
+import br.com.vh.AppContatos.model.Pessoa;
 import br.com.vh.AppContatos.repository.ContatosRepository;
+import br.com.vh.AppContatos.repository.PessoaRepository;
 
 @Service
 public class ContatoService {
@@ -15,25 +17,28 @@ public class ContatoService {
 	@Autowired
 	private ContatosRepository contatoRepository;
 	
-	public Contato saveCtt(Contato contato) {
-		if(contato.getName() == null) {
-			System.out.println("O nome esta vazio.");
+	@Autowired
+	private PessoaRepository pessoaRepository;
+	
+		public Contato saveCtt(Contato contato) {		
+		if(contato.getPessoa().getId() != null) {
+			Optional<Pessoa> findPessoa = pessoaRepository
+					.findById(contato.getPessoa().getId());
+			if(findPessoa.isEmpty()) {
+				System.out.println("Contato não encontrado");
+				return null;
+			}else {
+				contato.setPessoa(findPessoa.get());
+				return contatoRepository.save(contato);
+			}			
+		}else {
+			System.out.println("Contato nulo");
 			return null;
-		}
-		
-		if(contato.getNumberTel() == null) {
-			System.out.println("Numero de telefone vazio.");
-			return null;
-		}try {
-			return contatoRepository.save(contato);
-		}catch (Exception e) {
-			System.out.println("Erro ao inserir produto " + 
-                    contato.toString() + ": " + e.getMessage());
-			return null;
-		}
-		
-
+		}		
 	}
+	
+	
+	
 	
 	public Contato uptade(Contato contato) {
 		Optional<Contato> findContato = contatoRepository.findById(contato.getId());

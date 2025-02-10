@@ -3,7 +3,6 @@ package br.com.vh.AppContatos.resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,18 +12,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 import br.com.vh.AppContatos.model.Contato;
 //import br.com.vh.AppContatos.repository.ContatosRepository;
 import br.com.vh.AppContatos.service.ContatoService;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("api/contato")
 public class AppContatoResource {
 	
 	@Autowired
@@ -64,15 +61,6 @@ public class AppContatoResource {
 		}
 	}
 	
-	/*@DeleteMapping("/{id}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void removeContact(@PathVariable("id") Long id) {
-		contatoService.searchById(id).map(contato -> {
-			contatoService.removeId(contato.getId());
-			return Void.TYPE;
-		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Contact not found"));
-	}*/
-	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable Long id){
 		contatoService.removeId(id);
@@ -89,7 +77,4 @@ public class AppContatoResource {
 	    }
 	}
 
-	
-	
-	
 }
