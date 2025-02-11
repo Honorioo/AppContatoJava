@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.vh.AppContatos.model.Contato;
-//import br.com.vh.AppContatos.repository.ContatosRepository;
 import br.com.vh.AppContatos.service.ContatoService;
 
 import java.util.List;

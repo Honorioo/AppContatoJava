@@ -22,8 +22,8 @@ public class PessoaService {
 			return null;
 		}
 		
-		if(pessoa.getEmail() == null) {
-			System.out.println("Email está vazio.");
+		if(pessoa.getEndereco() == null) {
+			System.out.println("Endereço está vazio.");
 			return null;
 		}
 		
@@ -58,7 +58,7 @@ public class PessoaService {
 		if(findUsuario.isPresent()) {
 			Pessoa uptdUsuario = findUsuario.get(); //setId
 			uptdUsuario.setName(pessoa.getName());
-			uptdUsuario.setEmail(pessoa.getEmail());
+			uptdUsuario.setEndereco(pessoa.getEndereco());
 			uptdUsuario.setCidade(pessoa.getCidade());
 			uptdUsuario.setCep(pessoa.getCep());
 			uptdUsuario.setUf(pessoa.getUf());

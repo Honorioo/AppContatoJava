@@ -22,7 +22,7 @@ public class Pessoa {
 	private String name;
 	
 	@Column(nullable = false)
-	private String email;
+	private String endereco;
 	
 	@Column(nullable = false)
 	private String cep;
@@ -36,10 +36,10 @@ public class Pessoa {
 	@OneToMany(mappedBy = "pessoa")
 	private List<Contato> contatos;
  
-	public Pessoa(Long id, String name, String email, String cep, String cidade, String uf) {
+	public Pessoa(Long id, String name, String endereco, String cep, String cidade, String uf) {
 		this.id = id;
 		this.name = name;
-		this.email = email;
+		this.endereco = endereco;
 		this.cep = cep;
 		this.cidade = cidade;
 		this.uf = uf;
@@ -65,12 +65,12 @@ public class Pessoa {
 		this.name = name;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getEndereco() {
+		return endereco;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
 	}
 
 	public String getCep() {
@@ -99,13 +99,15 @@ public class Pessoa {
 
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + 
-			   ", name=" + name + 
-			   ", email=" + email + 
-			   ", cep=" + cep + 
-			   ", cidade=" + cidade + 
-			   ", uf=" + uf + "]";
+		return "Pessoa [id="  + id       + 
+				", name="     + name     + 
+				", endereco=" + endereco + 
+				", cep="      + cep      + 
+				", cidade="   + cidade   + 
+				", uf="       + uf       + "]";
 	}
+
+
 	
 	
 

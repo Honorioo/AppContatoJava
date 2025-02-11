@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.vh.AppContatos.dto.MalaDiretaDto;
 import br.com.vh.AppContatos.model.Pessoa;
 import br.com.vh.AppContatos.service.PessoaService;
 
@@ -38,14 +39,27 @@ public class AppPessoaResource {
 		return ResponseEntity.ok(listUsuario);
 	}
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<Optional<Pessoa>> findById(@PathVariable Long id){
+	@GetMapping("/maladireta/{id}")
+	public ResponseEntity<MalaDiretaDto> findById(@PathVariable Long id){
 		Optional<Pessoa> idUsuario = pessoaService.searchByIdUsuario(id);
 		if(idUsuario == null) {
 			return ResponseEntity.notFound().build();
-		}else {
-			return ResponseEntity.ok(idUsuario);
 		}
+		
+		Pessoa pessoa = idUsuario.get();
+		
+		String enderecoCompleto = pessoa.getEndereco() + " - " 
+								  + pessoa.getCep()    + " - " 
+								  + pessoa.getCidade() + "/" 
+								  + pessoa.getUf();
+		
+	    MalaDiretaDto malaDiretaDto = new MalaDiretaDto(
+		        pessoa.getId(), 
+		        pessoa.getName(), 
+		        enderecoCompleto
+		    );
+		    
+		return ResponseEntity.ok(malaDiretaDto);
 	}
 	
 	@PostMapping
