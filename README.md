@@ -13,7 +13,7 @@ Spring Boot
 
 Spring Data JPA
 
-Banco de Dados (ex: H2, PostgreSQL, MySQL)
+Banco de Dados (H2)
 
 Swagger para documentação da API
 
