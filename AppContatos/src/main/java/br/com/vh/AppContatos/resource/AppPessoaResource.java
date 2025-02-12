@@ -1,5 +1,6 @@
 package br.com.vh.AppContatos.resource;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +29,7 @@ public class AppPessoaResource {
 	private PessoaService pessoaService;
 	
 	@GetMapping
-	public ResponseEntity<List<Pessoa>> listUsuario(){
+	public ResponseEntity<List<MalaDiretaDto>> listUsuario(){
 		List<Pessoa> listUsuario = pessoaService.listUsuario();		
 		if(listUsuario == null) {
 			return ResponseEntity.badRequest().build();
@@ -36,9 +37,29 @@ public class AppPessoaResource {
 		if(listUsuario.size() == 0) {
 			return ResponseEntity.notFound().build();
 		}
-		return ResponseEntity.ok(listUsuario);
-	}
+		
+	    List<MalaDiretaDto> malaDiretaList = new ArrayList<>();
+ 
 	
+		for(Pessoa pessoa : listUsuario) {
+			
+			String enderecoCompleto = pessoa.getEndereco() + " - " 
+					  + pessoa.getCep()    + " - " 
+					  + pessoa.getCidade() + "/" 
+					  + pessoa.getUf();
+			
+		    MalaDiretaDto malaDiretaDto = new MalaDiretaDto(
+			        pessoa.getId(), 
+			        pessoa.getName(), 
+			        enderecoCompleto
+			    );
+		    
+		    malaDiretaList.add(malaDiretaDto);
+		}
+	    
+		return ResponseEntity.ok(malaDiretaList);
+	}
+
 	@GetMapping("/maladireta/{id}")
 	public ResponseEntity<MalaDiretaDto> findById(@PathVariable Long id){
 		Optional<Pessoa> idUsuario = pessoaService.searchByIdUsuario(id);
