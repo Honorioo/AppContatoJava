@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.vh.AppContatos.dto.MalaDiretaDto;
 import br.com.vh.AppContatos.model.Pessoa;
 import br.com.vh.AppContatos.service.PessoaService;
+import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
 @RequestMapping("api/pessoa")
@@ -29,6 +30,7 @@ public class AppPessoaResource {
 	private PessoaService pessoaService;
 	
 	@GetMapping
+	@Operation(summary = "Busca pela lista de Pessoas cadastradas")
 	public ResponseEntity<List<MalaDiretaDto>> listUsuario(){
 		List<Pessoa> listUsuario = pessoaService.listUsuario();		
 		if(listUsuario == null) {
@@ -61,6 +63,7 @@ public class AppPessoaResource {
 	}
 
 	@GetMapping("/maladireta/{id}")
+	@Operation(summary = "Busca pela Pessoas por ID")
 	public ResponseEntity<MalaDiretaDto> findById(@PathVariable Long id){
 		Optional<Pessoa> idUsuario = pessoaService.searchByIdUsuario(id);
 		if(idUsuario == null) {
@@ -85,6 +88,7 @@ public class AppPessoaResource {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
+	@Operation(summary = "Criação de Pessoa")
 	public ResponseEntity<Pessoa> saveContact(@RequestBody Pessoa pessoa) {
 		Pessoa newUsuario = pessoaService.saveUsuario(pessoa);
 		if(newUsuario == null) {
@@ -97,6 +101,7 @@ public class AppPessoaResource {
 	
 
 	@PutMapping
+	@Operation(summary = "Atualiza Pessoa cadastrada")
 	public ResponseEntity<Pessoa> updateContact(@RequestBody Pessoa pessoa) {
 	    Pessoa updatedUsuario = pessoaService.uptadeUsuario(pessoa);
 	    if(updatedUsuario == null) {
@@ -107,6 +112,7 @@ public class AppPessoaResource {
 	}
 	
 	@DeleteMapping("/{id}")
+	@Operation(summary = "Deleta Pessoa cadastrada")
 	public ResponseEntity<?> delete(@PathVariable Long id){
 		pessoaService.removeIdUsuario(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT); //204

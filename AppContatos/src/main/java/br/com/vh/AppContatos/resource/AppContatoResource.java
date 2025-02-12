@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.vh.AppContatos.model.Contato;
 import br.com.vh.AppContatos.service.ContatoService;
+import io.swagger.v3.oas.annotations.Operation;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +28,7 @@ public class AppContatoResource {
 	private ContatoService contatoService;
 
 	@GetMapping
+	@Operation(summary = "Busca pela lista de contatos com as Pessoas associadas")
 	public ResponseEntity<List<Contato>> list(){
 		List<Contato> listContato = contatoService.listCtt();		
 		if(listContato == null) {
@@ -39,6 +41,7 @@ public class AppContatoResource {
 	}	
 	
 	@GetMapping("/{id}")
+	@Operation(summary = "Busca pelo Contato por ID com as Pessoas associadas")
 	public ResponseEntity<Optional<Contato>> findById(@PathVariable Long id){
 		Optional<Contato> idContato = contatoService.searchById(id);
 		if(idContato == null) {
@@ -50,6 +53,7 @@ public class AppContatoResource {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
+	@Operation(summary = "Criação do Contato, não esqueça de passar o ID da Pessoa que será associada")
 	public ResponseEntity<Contato> saveContact(@RequestBody Contato contato) {
 		Contato newCtt = contatoService.saveCtt(contato);
 		if(newCtt == null) {
@@ -61,12 +65,14 @@ public class AppContatoResource {
 	}
 	
 	@DeleteMapping("/{id}")
+	@Operation(summary = "Deleta o Contato")
 	public ResponseEntity<?> delete(@PathVariable Long id){
 		contatoService.removeId(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT); //204
 	}
 	
 	@PutMapping
+	@Operation(summary = "Atualiza o Contato, não se esqueça de passar o ID do contato que deseja ser apagado")
 	public ResponseEntity<Contato> updateContact(@RequestBody Contato contato) {
 	    Contato updatedContato = contatoService.uptade(contato);
 	    if(updatedContato == null) {
