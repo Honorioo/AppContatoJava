@@ -45,7 +45,7 @@ public class ContatoService {
 			Contato uptdContato = findContato.get(); //setId
 			uptdContato.setName(contato.getName()); //veio por parametro
 			uptdContato.setNumberTel(contato.getNumberTel());
-			uptdContato.setTypeCtt(contato.getTypeCtt());
+			uptdContato.setTipoContato(contato.getTipoContato());
 			return contatoRepository.save(uptdContato); //UPDATE
 		}
 		return contatoRepository.save(contato); //INSERT		

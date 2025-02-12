@@ -1,7 +1,10 @@
 package br.com.vh.AppContatos.model;
 
+import br.com.vh.AppContatos.enumTipoContato.TipoContato;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,7 +24,8 @@ public class Contato {
     private String name;
         
     @Column(nullable = false)
-    private Integer typeCtt;
+    @Enumerated(EnumType.STRING)
+    private TipoContato tipoContato;
     
     @Column(nullable = true)
     private String numberTel;
@@ -30,11 +34,12 @@ public class Contato {
     @JoinColumn(name = "pessoa_id", nullable = true)
     private Pessoa pessoa; 
     
-    public Contato(Long id, String name, Integer typeCtt, String numberTel, Pessoa pessoa) { // Alterado para aceitar Usuario
+    public Contato(Long id, String name, TipoContato tipoContato, String numberTel, Pessoa pessoa) { 
         this.id = id;
         this.name = name;
-        this.typeCtt = typeCtt;
+        this.tipoContato = tipoContato;
         this.numberTel = numberTel;
+        this.pessoa = pessoa;
     }
 
     public Contato() {
@@ -64,12 +69,12 @@ public class Contato {
         this.numberTel = numberTel;
     }
 
-    public Integer getTypeCtt() {
-        return typeCtt;
+    public TipoContato getTipoContato() {
+        return tipoContato;
     }
 
-    public void setTypeCtt(Integer typeCtt) {
-        this.typeCtt = typeCtt;
+    public void setTipoContato(TipoContato tipoContato) {
+        this.tipoContato = tipoContato;
     }
 
     public Pessoa getPessoa() {
@@ -84,8 +89,10 @@ public class Contato {
     public String toString() {
         return "Contato [id=" + id + 
                ", name=" + name + 
-               ", typeCtt=" + typeCtt + 
+               ", typeCtt=" + tipoContato + 
                ", contact=" + numberTel + 
                ", usuario=" + pessoa + "]";
     }
+    
+    
 }
