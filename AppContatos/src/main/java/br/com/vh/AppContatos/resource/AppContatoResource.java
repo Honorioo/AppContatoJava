@@ -26,9 +26,9 @@ public class AppContatoResource {
 	
 	@Autowired
 	private ContatoService contatoService;
-
-	@GetMapping
+	
 	@Operation(summary = "Busca pela lista de contatos com as Pessoas associadas")
+	@GetMapping
 	public ResponseEntity<List<Contato>> list(){
 		List<Contato> listContato = contatoService.listCtt();		
 		if(listContato == null) {
@@ -40,8 +40,8 @@ public class AppContatoResource {
 		return ResponseEntity.ok(listContato);
 	}	
 	
-	@GetMapping("/{id}")
 	@Operation(summary = "Busca pelo Contato por ID com as Pessoas associadas")
+	@GetMapping("/{id}")
 	public ResponseEntity<Optional<Contato>> findById(@PathVariable Long id){
 		Optional<Contato> idContato = contatoService.searchById(id);
 		if(idContato == null) {
@@ -51,9 +51,9 @@ public class AppContatoResource {
 		}
 	}
 	
+	@Operation(summary = "Criação do Contato, não esqueça de passar o ID da Pessoa que será associada")
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	@Operation(summary = "Criação do Contato, não esqueça de passar o ID da Pessoa que será associada")
 	public ResponseEntity<Contato> saveContact(@RequestBody Contato contato) {
 		Contato newCtt = contatoService.saveCtt(contato);
 		if(newCtt == null) {
@@ -64,15 +64,15 @@ public class AppContatoResource {
 		}
 	}
 	
-	@DeleteMapping("/{id}")
 	@Operation(summary = "Deleta o Contato")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable Long id){
 		contatoService.removeId(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT); //204
 	}
 	
-	@PutMapping
 	@Operation(summary = "Atualiza o Contato, não se esqueça de passar o ID do contato que deseja ser apagado")
+	@PutMapping
 	public ResponseEntity<Contato> updateContact(@RequestBody Contato contato) {
 	    Contato updatedContato = contatoService.uptade(contato);
 	    if(updatedContato == null) {
