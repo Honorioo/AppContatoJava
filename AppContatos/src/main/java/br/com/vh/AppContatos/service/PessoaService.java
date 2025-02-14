@@ -45,7 +45,7 @@ public class PessoaService {
 		try {
 			return pessoaRepository.save(pessoa);
 		}catch (Exception e) {
-			System.out.println("Erro ao inserir produto " + 
+			System.out.println("Erro ao inserir Pessoa " + 
 					pessoa.toString() + ": " + e.getMessage());
 			return null;
 		}
