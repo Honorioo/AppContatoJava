@@ -7,16 +7,15 @@ A API foi projetada para ser simples e eficiente, permitindo operações CRUD (C
 
 ## Tecnologias Utilizadas
 
-Java
+Java - JDK 21
 
-Spring Boot
+Spring Boot - versão 3.4.2
 
-Spring Data JPA
+Spring Data JPA - para interações com o banco de dados
 
-Banco de Dados (H2)
+Banco de Dados H2 - banco em memória para fácil configuração e testes
 
-Swagger para documentação da API
-
+Swagger - versão 2.2.0, utilizado para a documentação interativa da API
 
 ## Clonar o Repositório
 
@@ -35,7 +34,7 @@ http://localhost:8080/swagger-ui/index.html
 
 Abaixo estão alguns dos endpoints disponíveis:
 
-### Pessoas
+### 📌 Pessoas
 
 GET api/pessoas - Lista todas as pessoas
 
@@ -47,7 +46,7 @@ PUT api/pessoas/{id} - Atualiza os dados de uma pessoa
 
 DELETE api/pessoas/{id} - Remove uma pessoa
 
-### Contatos
+### 📞 Contatos
 
 GET api/contato - Lista todos os contatos
 
@@ -58,3 +57,5 @@ GET api/contato/{id} - Retorna um contato pelo ID
 PUT api/contato/{id} - Atualiza um contato
 
 DELETE api/contato/{id} - Remove um contato
+
+✉️ Desenvolvido por Vinicius Honorio
