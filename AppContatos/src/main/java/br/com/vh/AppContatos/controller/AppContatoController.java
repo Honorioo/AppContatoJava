@@ -1,4 +1,4 @@
-package br.com.vh.AppContatos.resource;
+package br.com.vh.AppContatos.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +22,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("api/contato")
-public class AppContatoResource {
+public class AppContatoController {
 	
 	@Autowired
 	private ContatoService contatoService;

@@ -17,7 +17,7 @@ public class PessoaService {
 	
 	
 	public Pessoa saveUsuario(Pessoa pessoa){
-		if(pessoa.getName() == null) {
+		if(pessoa.getNome() == null) {
 			System.out.println("O nome está vazio.");
 			return null;
 		}
@@ -57,7 +57,7 @@ public class PessoaService {
 			
 		if(findUsuario.isPresent()) {
 			Pessoa uptdUsuario = findUsuario.get(); //setId
-			uptdUsuario.setName(pessoa.getName());
+			uptdUsuario.setNome(pessoa.getNome());
 			uptdUsuario.setEndereco(pessoa.getEndereco());
 			uptdUsuario.setCidade(pessoa.getCidade());
 			uptdUsuario.setCep(pessoa.getCep());

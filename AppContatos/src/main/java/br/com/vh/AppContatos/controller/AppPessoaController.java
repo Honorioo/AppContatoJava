@@ -1,4 +1,4 @@
-package br.com.vh.AppContatos.resource;
+package br.com.vh.AppContatos.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,7 @@ import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
 @RequestMapping("api/pessoa")
-public class AppPessoaResource {
+public class AppPessoaController {
 
 	@Autowired
 	private PessoaService pessoaService;
@@ -52,7 +52,7 @@ public class AppPessoaResource {
 			
 		    MalaDiretaDto malaDiretaDto = new MalaDiretaDto(
 			        pessoa.getId(), 
-			        pessoa.getName(), 
+			        pessoa.getNome(), 
 			        enderecoCompleto
 			    );
 		    
@@ -79,7 +79,7 @@ public class AppPessoaResource {
 		
 	    MalaDiretaDto malaDiretaDto = new MalaDiretaDto(
 		        pessoa.getId(), 
-		        pessoa.getName(), 
+		        pessoa.getNome(), 
 		        enderecoCompleto
 		    );
 		    

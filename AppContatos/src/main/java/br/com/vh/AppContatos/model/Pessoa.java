@@ -19,7 +19,7 @@ public class Pessoa {
 	private Long id;
 
 	@Column(nullable = false)
-	private String name;
+	private String nome;
 	
 	@Column(nullable = false)
 	private String endereco;
@@ -36,9 +36,9 @@ public class Pessoa {
 	@OneToMany(mappedBy = "pessoa")
 	private List<Contato> contatos;
  
-	public Pessoa(Long id, String name, String endereco, String cep, String cidade, String uf) {
+	public Pessoa(Long id, String nome, String endereco, String cep, String cidade, String uf) {
 		this.id = id;
-		this.name = name;
+		this.nome = nome;
 		this.endereco = endereco;
 		this.cep = cep;
 		this.cidade = cidade;
@@ -57,12 +57,12 @@ public class Pessoa {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getEndereco() {
@@ -100,7 +100,7 @@ public class Pessoa {
 	@Override
 	public String toString() {
 		return "Pessoa [id="  + id       + 
-				", name="     + name     + 
+				", name="     + nome     + 
 				", endereco=" + endereco + 
 				", cep="      + cep      + 
 				", cidade="   + cidade   + 

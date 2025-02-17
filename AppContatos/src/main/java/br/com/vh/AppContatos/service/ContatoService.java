@@ -43,8 +43,8 @@ public class ContatoService {
 		
 		if(findContato.isPresent()) {
 			Contato uptdContato = findContato.get(); //setId
-			uptdContato.setName(contato.getName()); //veio por parametro
-			uptdContato.setNumberTel(contato.getNumberTel());
+			uptdContato.setNome(contato.getNome()); //veio por parametro
+			uptdContato.setContato(contato.getContato());
 			uptdContato.setTipoContato(contato.getTipoContato());
 			return contatoRepository.save(uptdContato); //UPDATE
 		}

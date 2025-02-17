@@ -19,26 +19,25 @@ public class Contato {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @Column(nullable = false)
-    private String name;
-        
+    private String nome;
+
     @Column(nullable = false)
+    private String contato;
+
     @Enumerated(EnumType.STRING)
     private TipoContato tipoContato;
     
-    @Column(nullable = true)
-    private String numberTel;
-    
     @ManyToOne
-    @JoinColumn(name = "pessoa_id", nullable = true)
-    private Pessoa pessoa; 
+    @JoinColumn(name = "pessoa_id", nullable = false)
+    private Pessoa pessoa;
     
-    public Contato(Long id, String name, TipoContato tipoContato, String numberTel, Pessoa pessoa) { 
+    public Contato(Long id, String nome, TipoContato tipoContato, String contato, Pessoa pessoa) { 
         this.id = id;
-        this.name = name;
+        this.nome = nome;
         this.tipoContato = tipoContato;
-        this.numberTel = numberTel;
+        this.contato = contato;
         this.pessoa = pessoa;
     }
 
@@ -53,20 +52,20 @@ public class Contato {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNome() {
+        return nome;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNome(String name) {
+        this.nome = name;
     }
 
-    public String getNumberTel() {
-        return numberTel;
+    public String getContato() {
+        return contato;
     }
 
-    public void setNumberTel(String numberTel) {
-        this.numberTel = numberTel;
+    public void setContato(String contato) {
+        this.contato = contato;
     }
 
     public TipoContato getTipoContato() {
@@ -88,9 +87,9 @@ public class Contato {
     @Override
     public String toString() {
         return "Contato [id=" + id + 
-               ", name=" + name + 
-               ", typeCtt=" + tipoContato + 
-               ", contact=" + numberTel + 
+               ", name=" + nome + 
+               ", tipoContato=" + tipoContato + 
+               ", contato=" + contato + 
                ", usuario=" + pessoa + "]";
     }
     
