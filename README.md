@@ -17,7 +17,7 @@ Swagger - versão 2.2.0, utilizado para a documentação interativa da API
 
 
 ## Clonar o Repositório
-git clone https://github.com/seu-usuario/nome-do-repositorio.git 
+git clone https://github.com/Honorioo/AppContatoJava.git
 
 cd nome-do-repositorio
 
