@@ -24,6 +24,21 @@ public class ContatoService {
 		if(contato.getPessoa().getId() != null) {
 			Optional<Pessoa> findPessoa = pessoaRepository
 					.findById(contato.getPessoa().getId());
+			if(contato.getNome() == null) {
+				System.out.println("O nome está vazio.");
+				return null;
+			}
+			
+			if(contato.getTipoContato() == null) {
+				System.out.println("O tipo do contato está vazio.");
+				return null;
+			}
+			
+			if(contato.getContato() == null) {
+				System.out.println("O contato está vazio.");
+				return null;
+			}
+					
 			if(findPessoa.isEmpty()) {
 				System.out.println("Contato não encontrado");
 				return null;
