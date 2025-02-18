@@ -3,8 +3,6 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/Honorioo/AppContatoJava?style=for-the-badge)
 ![GitHub language count](https://img.shields.io/github/languages/count/Honorioo/AppContatoJava?style=for-the-badge)
 ![GitHub forks](https://img.shields.io/github/forks/Honorioo/AppContatoJava?style=for-the-badge)
-![Bitbucket open issues](https://img.shields.io/bitbucket/issues/Honorioo/AppContatoJava?style=for-the-badge)
-![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/Honorioo/AppContatoJava?style=for-the-badge)
 
 API desenvolvida em Java para gerenciar informações de pessoas e seus respectivos contatos, permitindo operações CRUD de maneira eficiente.
 
