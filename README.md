@@ -6,15 +6,6 @@
 
 API desenvolvida em Java para gerenciar informações de pessoas e seus respectivos contatos, permitindo operações CRUD de maneira eficiente.
 
-### Ajustes e melhorias
-
-O projeto ainda está em desenvolvimento e as próximas atualizações serão voltadas para as seguintes tarefas:
-
-- [x] Implementação dos endpoints principais
-- [x] Integração com banco de dados H2
-- [x] Documentação via Swagger
-- [x] Testes unitários
-
 ## 💻 Tecnologias Utilizadas
 
 - **Java** - JDK 21  
