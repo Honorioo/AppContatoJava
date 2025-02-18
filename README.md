@@ -65,19 +65,6 @@ A API utiliza um ENUM para definir os tipos de contato, com os seguintes valores
 - **PUT** `/api/contato/{id}` - Atualiza um contato
 - **DELETE** `/api/contato/{id}` - Remove um contato
 
-## 🤝 Colaborador
+##
 
-Agradecimento especial ao desenvolvedor responsável por este projeto:
-
-<table>
-  <tr>
-    <td align="center">
-      <a href="https://github.com/Honorioo">
-        <img src="https://avatars.githubusercontent.com/u/79340843?v=4" width="100px;" alt="Foto de Vinicius Honorio"/><br>
-        <sub>
-          <b>Vinicius Honorio</b>
-        </sub>
-      </a>
-    </td>
-  </tr>
-</table>
+✉️ Desenvolvido por <a href="https://github.com/Honorioo"> Vinicius Honorio
