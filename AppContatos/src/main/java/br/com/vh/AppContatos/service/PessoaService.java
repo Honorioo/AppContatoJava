@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.vh.AppContatos.dto.MalaDiretaDto;
 import br.com.vh.AppContatos.model.Pessoa;
 import br.com.vh.AppContatos.repository.PessoaRepository;
 
@@ -50,34 +51,38 @@ public class PessoaService {
 			return null;
 		}
 	}
+
 	
 	
-	public Pessoa uptadeUsuario(Pessoa pessoa) {
-		Optional<Pessoa> findUsuario = pessoaRepository.findById(pessoa.getId());
-			
-		if(findUsuario.isPresent()) {
-			Pessoa uptdUsuario = findUsuario.get(); //setId
-			uptdUsuario.setNome(pessoa.getNome());
-			uptdUsuario.setEndereco(pessoa.getEndereco());
-			uptdUsuario.setCidade(pessoa.getCidade());
-			uptdUsuario.setCep(pessoa.getCep());
-			uptdUsuario.setUf(pessoa.getUf());
-			return pessoaRepository.save(uptdUsuario); //UPDATE
-		}
-		return pessoaRepository.save(pessoa); //INSERT		
+	public Optional<MalaDiretaDto> updateUsuario(Pessoa pessoa) {
+	    return pessoaRepository.findById(pessoa.getId()).map(usuarioEncontrado -> {
+	        usuarioEncontrado.setNome(pessoa.getNome());
+	        usuarioEncontrado.setEndereco(pessoa.getEndereco());
+	        usuarioEncontrado.setCidade(pessoa.getCidade());
+	        usuarioEncontrado.setCep(pessoa.getCep());
+	        usuarioEncontrado.setUf(pessoa.getUf());
+
+	        Pessoa usuarioAtualizado = pessoaRepository.save(usuarioEncontrado);
+	        return MalaDiretaDto.fromEntity(usuarioAtualizado); 
+	    });
+	}
+
+	
+	public List<MalaDiretaDto> listPessoa() {
+	    return pessoaRepository.findAll()
+	        .stream()
+	        .map(MalaDiretaDto::fromEntity)
+	        .toList();
+	}
+		
+	public Optional<MalaDiretaDto> searchByIdPessoa(Long id) {
+	    return pessoaRepository.findById(id)
+	        .map(MalaDiretaDto::fromEntity);
 	}
 	
-	public List<Pessoa> listUsuario(){
-		return pessoaRepository.findAll();
-	}
-	
-	public Optional<Pessoa> searchByIdUsuario(Long id){
-		return pessoaRepository.findById(id);
-	}
-	
-	public void removeIdUsuario(Long id) {
+	public void removeIdPessoa(Long id) {
 		pessoaRepository.deleteById(id);
 	}
-	
+
 	
 }

@@ -1,12 +1,12 @@
 package br.com.vh.AppContatos.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +24,7 @@ import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
 @RequestMapping("api/pessoa")
+@CrossOrigin(origins = "http://localhost:4200") 
 public class AppPessoaController {
 
 	@Autowired
@@ -31,59 +32,27 @@ public class AppPessoaController {
 	
 	@Operation(summary = "Busca pela lista de Pessoas cadastradas")
 	@GetMapping
-	public ResponseEntity<List<MalaDiretaDto>> listUsuario(){
-		List<Pessoa> listUsuario = pessoaService.listUsuario();		
+	public ResponseEntity<List<MalaDiretaDto>> listPessoa(){
+		List<MalaDiretaDto> listUsuario = pessoaService.listPessoa();		
 		if(listUsuario == null) {
 			return ResponseEntity.badRequest().build();
 		}
 		if(listUsuario.size() == 0) {
 			return ResponseEntity.notFound().build();
 		}
-		
-	    List<MalaDiretaDto> malaDiretaList = new ArrayList<>();
- 
-	
-		for(Pessoa pessoa : listUsuario) {
-			
-			String enderecoCompleto = pessoa.getEndereco() + " - " 
-					  + pessoa.getCep()    + " - " 
-					  + pessoa.getCidade() + "/" 
-					  + pessoa.getUf();
-			
-		    MalaDiretaDto malaDiretaDto = new MalaDiretaDto(
-			        pessoa.getId(), 
-			        pessoa.getNome(), 
-			        enderecoCompleto
-			    );
-		    
-		    malaDiretaList.add(malaDiretaDto);
-		}
-	    
-		return ResponseEntity.ok(malaDiretaList);
+			    
+	    return ResponseEntity.ok(listUsuario);
 	}
-
+	  
 	@Operation(summary = "Busca pela Pessoas por ID")
 	@GetMapping("/maladireta/{id}")
-	public ResponseEntity<MalaDiretaDto> findById(@PathVariable Long id){
-		Optional<Pessoa> idUsuario = pessoaService.searchByIdUsuario(id);
+	public ResponseEntity<Optional<MalaDiretaDto>> findById(@PathVariable Long id){
+		Optional<MalaDiretaDto> idUsuario = pessoaService.searchByIdPessoa(id);
 		if(idUsuario == null) {
 			return ResponseEntity.notFound().build();
 		}
-		
-		Pessoa pessoa = idUsuario.get();
-		
-		String enderecoCompleto = pessoa.getEndereco() + " - " 
-								  + pessoa.getCep()    + " - " 
-								  + pessoa.getCidade() + "/" 
-								  + pessoa.getUf();
-		
-	    MalaDiretaDto malaDiretaDto = new MalaDiretaDto(
-		        pessoa.getId(), 
-		        pessoa.getNome(), 
-		        enderecoCompleto
-		    );
-		    
-		return ResponseEntity.ok(malaDiretaDto);
+	
+		return ResponseEntity.ok(idUsuario);
 	}
 	
 	@Operation(summary = "Criação de Pessoa")
@@ -101,20 +70,20 @@ public class AppPessoaController {
 	
 
 	@Operation(summary = "Atualiza Pessoa cadastrada")
-	@PutMapping
-	public ResponseEntity<Pessoa> updateContact(@RequestBody Pessoa pessoa) {
-	    Pessoa updatedUsuario = pessoaService.uptadeUsuario(pessoa);
-	    if(updatedUsuario == null) {
-	    	return ResponseEntity.badRequest().build();
-	    }else {
-	    	return ResponseEntity.ok(updatedUsuario);
-	    }
+	@PutMapping("/{id}")
+	public ResponseEntity<MalaDiretaDto> updateContact(@PathVariable Long id, @RequestBody Pessoa pessoa) {
+	    Optional<MalaDiretaDto> updatedUsuario = pessoaService.updateUsuario(pessoa);
+
+	    return updatedUsuario
+	        .map(ResponseEntity::ok)
+	        .orElseGet(() -> ResponseEntity.notFound().build());
 	}
+
 	
 	@Operation(summary = "Deleta Pessoa cadastrada")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable Long id){
-		pessoaService.removeIdUsuario(id);
+		pessoaService.removeIdPessoa(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT); //204
 	}
 	

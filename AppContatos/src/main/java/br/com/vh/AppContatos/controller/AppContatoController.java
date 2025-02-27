@@ -72,7 +72,7 @@ public class AppContatoController {
 	}
 	
 	@Operation(summary = "Atualiza o Contato, não se esqueça de passar o ID do contato que deseja ser apagado")
-	@PutMapping
+	@PutMapping("/{id}")
 	public ResponseEntity<Contato> updateContact(@RequestBody Contato contato) {
 	    Contato updatedContato = contatoService.uptade(contato);
 	    if(updatedContato == null) {
